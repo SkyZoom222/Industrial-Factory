@@ -23,6 +23,9 @@ namespace Industrial_Factory
         int tick, last_tick = -100;
         int id, count;
 
+        Texture2D[][] ObjectTexturesRot;
+        Texture2D[] ObjectTextures;
+
         Camera _camera;
 
         Rectangle DrawingBorder;
@@ -155,6 +158,22 @@ namespace Industrial_Factory
             Data.UItexture[4] = Content.Load<Texture2D>("craftUI");
             Data.poleBG = Content.Load<Texture2D>("pole-BG");
 
+            ObjectTexturesRot = new Texture2D[13][];
+            for (int i = 0; i < ObjectTexturesRot.Length; i++)
+            {
+                ObjectTexturesRot[i] = new Texture2D[4];
+                for (int rot = 0; rot < 4; rot++)
+                {
+                    ObjectTexturesRot[i][rot] = LoadTextureObject(i, rot);
+                }
+            }
+
+            ObjectTextures = new Texture2D[13];
+            for(int i = 0; i < ObjectTextures.Length; i++)
+            {
+                ObjectTextures[i] = LoadTextureObject(i);
+            }
+
             Font = Content.Load<SpriteFont>("font/font");
 
             // TODO: use this.Content to load your game content here
@@ -266,9 +285,8 @@ namespace Industrial_Factory
                 {
                     if (Data.ObjInf[x, y] == null) continue;
                     Rectangle border;
-                    if (Data.ObjMap[x, y].Tag == "moni" || Data.ObjMap[x, y].Tag == "conveer") continue;
+                    if (Data.ObjMap[x, y].Tag == "moni" || Data.ObjMap[x, y].Tag == "conveer" || Data.ObjMap[x,y].Tag == "electric") continue;
                     border = new Rectangle(x * scale, y * scale - 10, scale, scale + 10);
-                    if (Data.ObjMap[x, y].Tag == "electric") { border.Y -= 90; border.Height += 90; }
                     _spriteBatch.Draw(Data.ObjMap[x, y], border, Color.White);
                 }
             }
@@ -287,6 +305,13 @@ namespace Industrial_Factory
                         border = new Rectangle(x * scale - 18, y * scale - 30, (int)(scale * 1.5 + 23), (int)(scale * 1.5 + 8));
                         _spriteBatch.Draw(Data.ObjMap[x, y], border, Color.White);
                     }
+                    if (Data.ObjMap[x, y].Tag == "electric")
+                    {
+                        border = new Rectangle(x * scale, y * scale - 10, scale, scale + 10);
+                        border.Y -= 90; border.Height += 90;
+                        _spriteBatch.Draw(Data.ObjMap[x, y], border, Color.White);
+                    }
+
                 }
             }
             #endregion
@@ -312,9 +337,8 @@ namespace Industrial_Factory
                     if (x * scale < -Data.character.VPx - 50 - scale) continue;
                     if (Data.ObjInf[x, y] == null) continue;
                     Rectangle border;
-                    if (Data.ObjMap[x, y].Tag == "moni" || Data.ObjMap[x, y].Tag == "conveer") continue;
+                    if (Data.ObjMap[x, y].Tag == "moni" || Data.ObjMap[x, y].Tag == "conveer" || Data.ObjMap[x,y].Tag == "electric") continue;
                     border = new Rectangle(x * scale, y * scale - 10, scale, scale + 10);
-                    if (Data.ObjMap[x, y].Tag == "electric") { border.Y -= 90; border.Height += 90;  }
                     _spriteBatch.Draw(Data.ObjMap[x, y], border, Color.White);
 
                 }
@@ -1114,24 +1138,36 @@ namespace Industrial_Factory
         public Texture2D GetTextureObject(int i, bool rot = true)
         {
             if (rot)
+            {
+                return ObjectTexturesRot[i][Data.SelectedRot];
+            }
+            else
+            {
+                return ObjectTextures[i];
+            }
+        }
+
+        public Texture2D LoadTextureObject(int i, int rot = -1)
+        {
+            if (rot != -1)
                 switch (i) //10 pole, 11 digger
                 {
                     case 0:
-                        return Content.Load<Texture2D>($"Furnance{Data.SelectedRot + 1}");
+                        return Content.Load<Texture2D>($"Furnance{rot + 1}");
                     case 1:
-                        return Content.Load<Texture2D>($"Chest{Data.SelectedRot}");
+                        return Content.Load<Texture2D>($"Chest{rot}");
                     case 2:
-                        return Content.Load<Texture2D>($"ChestIron{Data.SelectedRot}");
+                        return Content.Load<Texture2D>($"ChestIron{rot}");
                     case 3:
-                        return Content.Load<Texture2D>($"conveer{Data.SelectedRot}");
+                        return Content.Load<Texture2D>($"conveer{rot}");
                     case 4:
-                        return Content.Load<Texture2D>($"monipulator{Data.SelectedRot}");
+                        return Content.Load<Texture2D>($"monipulator{rot}");
                     case 5:
-                        return Content.Load<Texture2D>($"Furnance{Data.SelectedRot + 1}_activated");
+                        return Content.Load<Texture2D>($"Furnance{rot + 1}_activated");
                     case 10:
                         return Content.Load<Texture2D>($"ElectricPole");
                     case 11:
-                        return Content.Load<Texture2D>($"Digger{Data.SelectedRot}");
+                        return Content.Load<Texture2D>($"Digger{rot}");
                     case 12:
                         return Content.Load<Texture2D>($"Generator");
                     default:
