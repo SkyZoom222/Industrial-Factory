@@ -22,19 +22,19 @@ namespace Industrial_Factory
             switch (dir)
             {
                 case 0: // -- Down Direction
-                    HB = new Rectangle(Item.X, Item.Y + 3, Item.Width, Item.Height);
+                    HB = new Rectangle(Item.X + 3, Item.Y + 3, Item.Width - 6, Item.Height);
                     ObjOffset = new Point(20, 0);
                     break;
                 case 1: // -- Left Direction
-                    HB = new Rectangle(Item.X - 3, Item.Y, Item.Width, Item.Height);
+                    HB = new Rectangle(Item.X - 3, Item.Y + 3, Item.Width, Item.Height - 6);
                     ObjOffset = new Point(40, 20);
                     break;
                 case 2: // -- Up Direction
-                    HB = new Rectangle(Item.X, Item.Y - 3, Item.Width, Item.Height);
+                    HB = new Rectangle(Item.X + 3, Item.Y - 3, Item.Width - 6, Item.Height);
                     ObjOffset = new Point(20, 40);
                     break;
                 case 3: // -- Right Direction
-                    HB = new Rectangle(Item.X + 3, Item.Y, Item.Width, Item.Height);
+                    HB = new Rectangle(Item.X + 3, Item.Y + 3, Item.Width, Item.Height - 6);
                     ObjOffset = new Point(0, 20);
                     break;
             }
