@@ -23,19 +23,19 @@ namespace Industrial_Factory
             {
                 case 0: // -- Down Direction
                     HB = new Rectangle(Item.X + 3, Item.Y + 3, Item.Width - 6, Item.Height);
-                    ObjOffset = new Point(20, 0);
+                    ObjOffset = new Point(10, 0);
                     break;
                 case 1: // -- Left Direction
                     HB = new Rectangle(Item.X - 3, Item.Y + 3, Item.Width, Item.Height - 6);
-                    ObjOffset = new Point(40, 20);
+                    ObjOffset = new Point(20, 10);
                     break;
                 case 2: // -- Up Direction
                     HB = new Rectangle(Item.X + 3, Item.Y - 3, Item.Width - 6, Item.Height);
-                    ObjOffset = new Point(20, 40);
+                    ObjOffset = new Point(10, 20);
                     break;
                 case 3: // -- Right Direction
                     HB = new Rectangle(Item.X + 3, Item.Y + 3, Item.Width, Item.Height - 6);
-                    ObjOffset = new Point(0, 20);
+                    ObjOffset = new Point(0, 10);
                     break;
             }
             foreach (var item in Data.droppedItems) 
@@ -58,6 +58,7 @@ namespace Industrial_Factory
             {
                 Move((int)Data.ObjInf[Grid.X, Grid.Y][2]);
             }
+            else ObjOffset = new Point(10);
 
 
 

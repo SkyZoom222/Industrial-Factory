@@ -68,7 +68,7 @@ namespace Industrial_Factory
             // TODO: Add your initialization logic here
             //init Data
             Data.random = new Random();
-            Data.Hmap = 300; Data.Wmap = 300;
+            Data.Hmap = 50; Data.Wmap = 50;
             Data.SizeTile = 360;
             Data.TileScale = 0.125;
             Data.SizeObj = 90;
